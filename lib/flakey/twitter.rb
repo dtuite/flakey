@@ -1,20 +1,17 @@
 module Flakey
   module Twitter
 
-    def twitter_handle(handle = nil)
-      handle or Flakey.configuration.default_twitter_handle
+    def twitter_handle(options = {})
+      options[:handle] || Flakey.configuration.default_twitter_handle
     end
 
     def twitter_url(options = {})
-      handle = options[:handle] or twitter_handle
+      handle = options[:handle] || twitter_handle
       "https://twitter.com/#{handle}"
     end
 
     def tweet_button(options = {})
       url = options[:url] || request.url
-      # TODO: THe text should default to the page title. I think
-      # it will do this by itself if I just leave it out
-      # of the data attributes hash?
       text = options[:text]
       hashtags = options[:hashtags] ||
         Flakey.configuration.default_tweet_hashtags
@@ -31,6 +28,7 @@ module Flakey
         :hashtags => hashtags,
         url: url
       }
+      # Twitter will take the page title if we just leave it out.
       data_attr.merge!(text: text) unless text.nil?
 
       link_to label, "https://twitter.com/share", 

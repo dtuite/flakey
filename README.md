@@ -18,12 +18,19 @@ Or install it yourself as:
 
 ## Usage
 
+### Twitter
+
     # config/initializers/flakey.rb
     Flakey.configure do |config|
-      config.twitter do |t|
-        t.default_tweet_text = 'Hey check out this awesome gem'
-      end
+      # Optionally include:
+      # config.default_twitter_handle = 'dtuite'
+      # config.default_tweet_hastags = ''
+      # config.default_tweet_via = ''
+      # config.default_tweet_related = ''
     end
+
+    # app/assets/javascrippts/application.js
+    #= require flakey/twitter
 
     # app/helpers/application_helper.rb
     module ApplicationHelper
@@ -32,6 +39,25 @@ Or install it yourself as:
 
     # app/views/layouts/application.html.erb
     <%= tweet_button(hashtags: 'awesome') %>
+
+### Facebook
+
+    # config/initializers/flakey.rb
+    Flakey.configure do |config|
+      config.facebook_app_id = '<YOUR_APP_ID>'
+      config.default_facebook_nickname = '<A_FACEBOOK_NICKNAME>'
+    end
+
+    # app/assets/javascrippts/application.js
+    #= require flakey/facebook
+
+    # app/helpers/application_helper.rb
+    module ApplicationHelper
+      include Flakey::Facebook
+    end
+
+    # app/views/layouts/application.html.erb
+    <%= like_button(width: 150) %>
 
 ## Contributing
 
