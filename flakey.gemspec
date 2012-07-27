@@ -4,8 +4,8 @@ require File.expand_path('../lib/flakey/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["David Tuite"]
   gem.email         = ["dtuite@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Social helpers for Rails apps.}
+  gem.summary       = %q{Makes a bunch of helper methods available for including in your Rails views.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "flakey"
   gem.require_paths = ["lib"]
   gem.version       = Flakey::VERSION
+
+  gem.add_development_dependency 'rspec'
 end

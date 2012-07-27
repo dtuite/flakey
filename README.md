@@ -18,7 +18,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    # config/initializers/flakey.rb
+    Flakey.configure do |config|
+      config.twitter do |t|
+        t.default_tweet_text = 'Hey check out this awesome gem'
+      end
+    end
+
+    # app/helpers/application_helper.rb
+    module ApplicationHelper
+      include Flakey::Twitter
+    end
+
+    # app/views/layouts/application.html.erb
+    <%= tweet_button(hashtags: 'awesome') %>
 
 ## Contributing
 
