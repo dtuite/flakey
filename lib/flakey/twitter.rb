@@ -26,7 +26,7 @@ module Flakey
         :via => via,
         :related => related,
         :hashtags => hashtags,
-        url: url
+        :url => url
       }
       # Twitter will take the page title if we just leave it out.
       data_attr.merge!(text: text) unless text.nil?

@@ -88,9 +88,27 @@ Or install it yourself as:
     end
 
     # app/views/layouts/application.html.erb
-    <%= link_to "Stacoverflow Profile", stackoverflow_profile_url %>
+    <%= link_to "Stackoverflow Profile", stackoverflow_profile_url %>
 
 ### Google Plus
+
+    # config/initializers/flakey.rb
+    Flakey.configure do |config|
+      # Optionally:
+      # Should be of the form of, for example, 'en-GB' or 'de'.
+      # config.plus_one_button_language = 'en-GB'
+    end
+
+    # app/assets/javascrippts/application.js
+    #= require flakey/google_plus
+
+    # app/helpers/application_helper.rb
+    module ApplicationHelper
+      include Flakey::GooglePlus
+    end
+
+    # app/views/layouts/application.html.erb
+    <%= plus_one_button %>
 
 ## Contributing
 
