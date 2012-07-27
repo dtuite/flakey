@@ -18,7 +18,9 @@ module Flakey
 
     attr_accessor :default_twitter_handle, :default_tweet_hashtags,
       :default_tweet_via, :default_tweet_related,
-      :default_facebook_nickname, :facebook_app_id
+      :default_facebook_nickname, :facebook_app_id,
+      :default_stackoverflow_nickname, :default_stackoverflow_user_id,
+      :default_github_name
 
     def initialize
       self.default_twitter_handle = DEFAULT_TWITTER_HANDLE

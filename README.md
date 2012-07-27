@@ -59,6 +59,39 @@ Or install it yourself as:
     # app/views/layouts/application.html.erb
     <%= like_button(width: 150) %>
 
+### Github
+
+    # config/initializers/flakey.rb
+    Flakey.configure do |config|
+      config.default_github_name = 'dtuite'
+    end
+
+    # app/helpers/application_helper.rb
+    module ApplicationHelper
+      include Flakey::Github
+    end
+
+    # app/views/layouts/application.html.erb
+    <%= link_to "Github", github_url %>
+
+### Stackoverflow
+
+    # config/initializers/flakey.rb
+    Flakey.configure do |config|
+      config.default_stackoverflow_nickname = 'david-tuite'
+      config.default_stackoverflow_user_id = '7389247'
+    end
+
+    # app/helpers/application_helper.rb
+    module ApplicationHelper
+      include Flakey::Stackoverflow
+    end
+
+    # app/views/layouts/application.html.erb
+    <%= link_to "Stacoverflow Profile", stackoverflow_profile_url %>
+
+### Google Plus
+
 ## Contributing
 
 1. Fork it
