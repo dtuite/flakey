@@ -1,6 +1,6 @@
-# Flakey
+# Flakey [![Build Status](https://secure.travis-ci.org/dtuite/flakey.png?branch=master)](http://travis-ci.org/dtuite/flakey)
 
-TODO: Write a gem description
+Social button helpers for your Rails 3.1 projects.
 
 ## Installation
 

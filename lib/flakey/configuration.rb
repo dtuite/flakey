@@ -9,21 +9,25 @@
 
 module Flakey
   class Configuration
-    attr_accessor :default_twitter_handle, :default_tweet_hashtags,
-      :default_tweet_via, :default_tweet_related,
-      :default_tweet_button_size, :default_tweet_button_class,
-      :default_facebook_nickname, :facebook_app_id,
-      :default_stackoverflow_nickname, :default_stackoverflow_user_id,
-      :default_github_name, :plus_one_button_language
+    attr_accessor :twitter_handle, :tweet_hashtags,
+      :tweet_via, :tweet_related,
+      :tweet_button_size, :tweet_button_class,
+      :tweet_label, :follow_button_size,
+      :follow_button_class, :follow_button_show_count,
+      :facebook_nickname, :facebook_app_id,
+      :stackoverflow_nickname, :stackoverflow_user_id,
+      :github_name, :plus_one_button_language
 
     def initialize
-      self.default_twitter_handle = ''
-      self.default_tweet_hashtags = ''
-      self.default_tweet_via = ''
-      self.default_tweet_related = ''
-      self.default_tweet_button_class = "twitter-share-button"
+      self.twitter_handle = ''
+      self.tweet_hashtags = ''
+      self.tweet_via = ''
+      self.tweet_related = ''
+      self.tweet_label = 'Tweet'
 
-      self.default_facebook_nickname = ''
+      self.follow_button_show_count = 'false'
+
+      self.facebook_nickname = ''
 
     end
   end

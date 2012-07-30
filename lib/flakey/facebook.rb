@@ -2,7 +2,7 @@ module Flakey
   module Facebook
     def facebook_nickname(options = {})
       options[:nickname] ||
-        Flakey.configuration.default_facebook_nickname
+        Flakey.configuration.facebook_nickname
     end
 
     def facebook_url(options = {}) 

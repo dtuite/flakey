@@ -1,7 +1,7 @@
 module Flakey
   module Github
     def github_name(options = {})
-      options[:name] || Flakey.configuration.default_github_name
+      options[:name] || Flakey.configuration.github_name
     end
 
     def github_url(options = {})

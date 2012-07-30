@@ -6,5 +6,5 @@ require "flakey/google_plus"
 require "flakey/stackoverflow"
 
 Flakey.configure do |c|
-  c.default_twitter_handle = 'grinnick'
+  c.twitter_handle = 'grinnick'
 end
