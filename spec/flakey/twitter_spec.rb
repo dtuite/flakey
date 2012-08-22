@@ -23,14 +23,14 @@ describe Flakey::Twitter do
     it "should append to the class list" do
       subject.should_receive(:link_to)
         .with("Tweet", Flakey::Twitter::SHARE_URL,
-              hash_including(class: 'hello twitter-tweet-button'))
+              hash_including(class: 'hello twitter-share-button'))
       subject.tweet_button(class: 'hello')
     end
 
     it "should work without a class argument" do
       subject.should_receive(:link_to)
         .with("Tweet", Flakey::Twitter::SHARE_URL,
-              hash_including(class: 'twitter-tweet-button'))
+              hash_including(class: 'twitter-share-button'))
       subject.tweet_button
     end
   end

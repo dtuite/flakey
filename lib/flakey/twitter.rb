@@ -7,7 +7,7 @@ module Flakey
     SHARE_URL = BASE_URL + "/share"
 
     # Default HTML classes for the various buttons.
-    TWEET_BUTTON_CLASS = 'twitter-tweet-button'
+    TWEET_BUTTON_CLASS = 'twitter-share-button'
     FOLLOW_BUTTON_CLASS = 'twitter-follow-button'
 
     # Get the default Twitter handle for this configuration. If a
