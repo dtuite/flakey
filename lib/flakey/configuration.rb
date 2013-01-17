@@ -9,14 +9,12 @@
 
 module Flakey
   class Configuration
-    attr_accessor :twitter_handle, :tweet_hashtags,
-      :tweet_via, :tweet_related,
-      :tweet_button_size, :tweet_button_class,
-      :tweet_label, :follow_button_size,
-      :follow_button_class, :follow_button_show_count,
-      :facebook_nickname, :facebook_app_id,
-      :stackoverflow_nickname, :stackoverflow_user_id,
-      :github_name, :plus_one_button_language
+    attr_accessor :twitter_handle, :tweet_hashtags, :tweet_via, :tweet_related,
+      :tweet_button_size, :tweet_button_class, :tweet_label, 
+      :follow_button_size, :follow_button_class, :follow_button_show_count,
+      :facebook_nickname, :facebook_app_id, :stackoverflow_nickname, 
+      :stackoverflow_user_id, :github_name, :plus_one_button_language, 
+      :google_plus_user_id
 
     def initialize
       self.twitter_handle = ''
@@ -29,6 +27,7 @@ module Flakey
 
       self.facebook_nickname = ''
 
+      self.google_plus_user_id = ''
     end
   end
 

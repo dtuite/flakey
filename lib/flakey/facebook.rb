@@ -5,9 +5,7 @@ module Flakey
         Flakey.configuration.facebook_nickname
     end
 
-    # TODO: This should be facebook_profile_url in order to stay
-    # consistent with the Twitter module.
-    def facebook_url(options = {}) 
+    def facebook_profile_url(options = {}) 
       nickname = options[:nickname] || facebook_nickname
       "https://www.facebook.com/" + nickname
     end
