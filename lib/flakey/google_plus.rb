@@ -25,4 +25,9 @@ module Flakey
       BASE_URL + "/#{user_id}"
     end
   end
+
+  def google_plus_profile_url(user_id = nil)
+    user_id = user_id || Flakey.configuration.google_plus_user_id
+    BASE_URL + "/#{user_id}"
+  end
 end
