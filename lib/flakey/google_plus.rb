@@ -1,5 +1,7 @@
 module Flakey
   module GooglePlus
+    BASE_URL = "https://plus.google.com"
+
     # INFO: https://developers.google.com/+/plugins/+1button/
     def plus_one_button(options = {})
       size = options[:size] || nil
@@ -17,5 +19,10 @@ module Flakey
 
       content_tag :div, '', class: class_list, data: data_attr
     end
+  end
+
+  def google_plus_profile_url(user_id = nil)
+    user_id = user_id || Flakey.configuration.google_plus_user_id
+    BASE_URL + "/#{user_id}"
   end
 end

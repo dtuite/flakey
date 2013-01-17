@@ -4,7 +4,7 @@ module Flakey
       options[:name] || Flakey.configuration.github_name
     end
 
-    def github_url(options = {})
+    def github_profile_url(options = {})
       name = options[:name] || github_name
       "https://github.com/" + name
     end

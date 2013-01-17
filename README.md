@@ -39,6 +39,7 @@ Or install it yourself as:
 
     # app/views/layouts/application.html.erb
     <%= tweet_button(hashtags: 'awesome') %>
+    <%= link_to "My Twitter Profile", twitter_profile_url %>
 
 ### Facebook
 
@@ -58,6 +59,7 @@ Or install it yourself as:
 
     # app/views/layouts/application.html.erb
     <%= like_button(width: 150) %>
+    <%= link_to "My Facebook Profile", facebook_profile_url %>
 
 ### Github
 
@@ -72,7 +74,7 @@ Or install it yourself as:
     end
 
     # app/views/layouts/application.html.erb
-    <%= link_to "Github", github_url %>
+    <%= link_to "My Github Profile", github_profile_url %>
 
 ### Stackoverflow
 
@@ -88,12 +90,13 @@ Or install it yourself as:
     end
 
     # app/views/layouts/application.html.erb
-    <%= link_to "Stackoverflow Profile", stackoverflow_profile_url %>
+    <%= link_to "My Stackoverflow Profile", stackoverflow_profile_url %>
 
 ### Google Plus
 
     # config/initializers/flakey.rb
     Flakey.configure do |config|
+      config.google_plus_user_id = "9873465784"
       # Optionally:
       # Should be of the form of, for example, 'en-GB' or 'de'.
       # config.plus_one_button_language = 'en-GB'
@@ -109,6 +112,8 @@ Or install it yourself as:
 
     # app/views/layouts/application.html.erb
     <%= plus_one_button %>
+    <%= link_to "My Google Plus Profile", google_plus_profile_url %>
+
 
 ## Contributing
 
