@@ -58,28 +58,19 @@ module Flakey
     def tweet_button(options = {})
       url = options[:url] || request.url
       text = options[:text]
-      hashtags = options[:hashtags] ||
-        Flakey.configuration.tweet_hashtags
-      label = options[:label] ||
-        Flakey.configuration.tweet_label
-      via = options[:via] ||
-        Flakey.configuration.tweet_via
-      related = options[:related] ||
-        Flakey.configuration.tweet_related
-      size = options[:size] || 
-        Flakey.configuration.tweet_button_size
-      class_list = options[:class] ||
-        Flakey.configuration.tweet_button_class
+      hashtags = options[:hashtags] || Flakey.configuration.tweet_hashtags
+      label = options[:label] || Flakey.configuration.tweet_label
+      via = options[:via] || Flakey.configuration.tweet_via
+      related = options[:related] || Flakey.configuration.tweet_related
+      size = options[:size] || Flakey.configuration.tweet_button_size
+      class_list = options[:class] || Flakey.configuration.tweet_button_class
 
-      data_attr = {
-        :via => via,
-        :related => related,
-        :hashtags => hashtags,
-        :url => url
-      }
+      data_attr = { via: via, related: related, hashtags: hashtags }
       # Twitter will take the page title if we just leave it out.
       data_attr.merge!(text: text) unless text.nil?
       data_attr.merge!(size: size) unless size.nil?
+      data_attr.merge!(url: url) unless url.nil?
+
       class_list = class_list ? 
         class_list.concat(' ' + TWEET_BUTTON_CLASS) : TWEET_BUTTON_CLASS
 
