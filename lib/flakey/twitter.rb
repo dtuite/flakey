@@ -1,3 +1,4 @@
+require 'active_support/core_ext/hash/except'
 # THis class is used to generate standard Twitter buttons as documented
 # on the [Twitter developers site](https://twitter.com/about/resources/buttons).
 
@@ -40,8 +41,8 @@ module Flakey
       BASE_URL + "/#{handle}"
     end
 
-    # Generate a tweet button. This method needs the Twitter JavaScript
-    # to be loaded on the page to work correctly.
+    # Generate a traditional tweet button. This method needs the Twitter 
+    # JavaScript to be loaded on the page to work correctly.
     #
     # Takes a hash of options to use when generating the button.
     #
@@ -77,8 +78,8 @@ module Flakey
       link_to label, SHARE_URL, :class => class_list, :data => data_attr
     end
 
-    # Generate a follow button. This method needs the Twitter JavaScript
-    # to be loaded on the page in order to work correctly.
+    # Generate a traditional follow button. This method needs the Twitter 
+    # JavaScript to be loaded on the page in order to work correctly.
     #
     # Takes a hash of options to use when generating the button.
     #
@@ -103,6 +104,20 @@ module Flakey
 
       link_to label, twitter_profile_url(handle),
         class: class_list, data: { :"show-count" => show_count, size: size }
+    end
+
+    # Generate a link which will open a dialog for following the user with
+    # whe specified user_id or screen_name.
+    def follow_intent_link(options = {})
+      text = options[:text] || ''
+      user_id_to_follow = options[:user_id] || ''
+      screen_name_to_follow = options[:screen_name] || ''
+
+      intent_url = 'https://twitter.com/intent/user?'
+      intent_url += user_id_to_follow.to_s unless user_id_to_follow == ''
+      intent_url += screen_name_to_follow.to_s unless screen_name_to_follow == ''
+
+      link_to text, intent_url, options.except(:text, :user_id, :screen_name)
     end
   end
 end

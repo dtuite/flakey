@@ -7,7 +7,7 @@ end
 describe Flakey::Twitter do
   subject { DummyHelper.new }
 
-  describe "twitter_handle" do
+  describe "#twitter_handle" do
     it "should output the twitter handle" do
       subject.twitter_handle.should == 'grinnick'
     end
@@ -17,7 +17,7 @@ describe Flakey::Twitter do
     end
   end
 
-  describe "tweet_button" do
+  describe "#tweet_button" do
     before { subject.stub_chain('request.url') { '' } }
 
     it "should append to the class list" do
@@ -35,7 +35,7 @@ describe Flakey::Twitter do
     end
   end
 
-  describe "follow_button" do
+  describe "#follow_button" do
     before { subject.stub_chain('request.url') { '' } }
 
     it "should append to the class list" do
