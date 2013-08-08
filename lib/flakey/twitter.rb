@@ -109,8 +109,10 @@ module Flakey
     # Generate a link which will open a dialog for following the user with
     # whe specified user_id or screen_name.
     def follow_intent_link(text, options = {})
-      user_id_to_follow = options[:user_id] || nil
-      screen_name_to_follow = options[:screen_name] || nil
+      # TODO: Default to a
+      user_id_to_follow = options[:user_id] || Flakey.configuration.twitter_user_id
+      screen_name_to_follow = options[:screen_name] || 
+        Flakey.configuration.twitter_handle
 
       intent_url = 'https://twitter.com/intent/user?'
 
@@ -120,7 +122,7 @@ module Flakey
 
       intent_url += '&' if user_id_to_follow && screen_name_to_follow
 
-      if screen_name_to_follow
+      unless screen_name_to_follow == ''
         intent_url += "screen_name=#{screen_name_to_follow}"
       end
 

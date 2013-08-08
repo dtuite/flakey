@@ -14,9 +14,10 @@ module Flakey
       :follow_button_size, :follow_button_class, :follow_button_show_count,
       :facebook_nickname, :facebook_app_id, :stackoverflow_nickname, 
       :stackoverflow_user_id, :github_name, :plus_one_button_language, 
-      :google_plus_user_id
+      :google_plus_user_id, :twitter_user_id
 
     def initialize
+      self.twitter_user_id = nil
       self.twitter_handle = ''
       self.tweet_hashtags = ''
       self.tweet_via = ''
