@@ -16,13 +16,13 @@ if (typeof jQuery === "undefined") {
     var top    = ($(window).height() - height) / 2;
     var opts   = "status=1,width=" + width + ',height=' + height + ',top=' + top + ',left=' + left;
       
-    window.open(url, 'twitter', opts)
+    window.open(url, name, opts)
   };
 
   $(function(){
     $('.custom-tweet-button').on('click', function(e){
       e.preventDefault();
-      openPopup($(e.target).attr('href'), 'twitter');
+      openPopup($(e.target).closest('a').attr('href'), 'twitter');
     });
   });
 })(jQuery);
