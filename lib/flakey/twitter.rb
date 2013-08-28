@@ -1,15 +1,22 @@
+# encoding: UTF-8
 require 'active_support/core_ext/hash/except'
-# THis class is used to generate standard Twitter buttons as documented
+# This class is used to generate standard Twitter buttons as documented
 # on the [Twitter developers site](https://twitter.com/about/resources/buttons).
 
 module Flakey
   module Twitter
+
     BASE_URL = "https://twitter.com"
     SHARE_URL = BASE_URL + "/share"
 
     # Default HTML classes for the various buttons.
     TWEET_BUTTON_CLASS = 'twitter-share-button'
     FOLLOW_BUTTON_CLASS = 'twitter-follow-button'
+
+    # Needed to be able to pass a block down into link_to.
+    # See the custom_tweet_button method.
+    # INFO: http://stackoverflow.com/a/7562194/574190
+    attr_accessor :output_buffer
 
     # Get the default Twitter handle for this configuration. If a
     # handle argument is supplied, it will be returned.
@@ -127,6 +134,38 @@ module Flakey
       end
 
       link_to text, intent_url, options.except(:user_id, :screen_name)
+    end
+
+    def custom_tweet_button(options = {}, &block)
+      defaults = {
+        label: 'Tweet',
+        url: request.url,
+        related: Flakey.configuration.tweet_related,
+        hashtags: Flakey.configuration.tweet_hashtags,
+        via: Flakey.configuration.tweet_via,
+        class: 'custom-tweet-button',
+        target: '_blank'
+      }
+      settings = defaults.merge(options)
+      url = "#{SHARE_URL}?url=#{CGI.escape settings[:url]}"
+
+      label = settings[:label]
+      # Delete these so we can pass the settings directly into link_to
+      settings.delete(:label)
+      settings.delete(:url)
+
+      %w[text hashtags related via].each do |url_key|
+        if settings.has_key?(url_key.to_sym) && settings[url_key.to_sym] != ''
+          url += "&#{url_key}=#{CGI.escape settings[url_key.to_sym]}"
+          settings.delete(url_key.to_sym)
+        end
+      end
+
+      if block_given?
+        link_to(url, settings, &block)
+      else
+        link_to label, url, settings
+      end
     end
   end
 end

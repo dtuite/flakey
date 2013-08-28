@@ -17,6 +17,9 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'activesupport'
 
+  # Pretend we're in Rails.
+  gem.add_development_dependency 'actionpack'
+
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rake'
 end
