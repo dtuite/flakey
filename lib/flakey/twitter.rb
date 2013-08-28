@@ -157,8 +157,8 @@ module Flakey
       %w[text hashtags related via].each do |url_key|
         if settings.has_key?(url_key.to_sym) && settings[url_key.to_sym] != ''
           url += "&#{url_key}=#{CGI.escape settings[url_key.to_sym]}"
-          settings.delete(url_key.to_sym)
         end
+        settings.delete(url_key.to_sym)
       end
 
       if block_given?

@@ -83,6 +83,11 @@ describe Flakey::Twitter do
       subject.custom_tweet_button.should_not =~ /&via=/
     end
 
+    it 'should not have via in the hyml' do
+      Flakey.configuration.stub(tweet_via: '')
+      subject.custom_tweet_button.should_not =~ /via=""/
+    end
+
     it 'should set a class' do
       subject.custom_tweet_button.should =~ /class="custom-twee/
     end
