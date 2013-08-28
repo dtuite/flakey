@@ -3,7 +3,11 @@
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=<%= Flakey.configuration.facebook_app_id %>";
+    <% if Flakey.configuration.facebook_app_id %>
+      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=<%= Flakey.configuration.facebook_app_id %>";
+    <% else %>
+      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+    <% end %>
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 <% end %>

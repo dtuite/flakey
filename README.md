@@ -22,11 +22,16 @@ Or install it yourself as:
 
     # config/initializers/flakey.rb
     Flakey.configure do |config|
+      config.twitter_handle = ''
+
       # Optionally include:
-      # config.default_twitter_handle = 'dtuite'
-      # config.default_tweet_hastags = ''
-      # config.default_tweet_via = ''
-      # config.default_tweet_related = ''
+      config.twitter_user_id = nil
+      config.tweet_hashtags = ''
+      config.tweet_via = ''
+      config.tweet_related = ''
+      config.tweet_button_count_position = 'horizontal'
+
+      config.follow_button_show_count = 'false'
     end
 
     # app/assets/javascrippts/application.js
@@ -45,8 +50,10 @@ Or install it yourself as:
 
     # config/initializers/flakey.rb
     Flakey.configure do |config|
-      config.facebook_app_id = '<YOUR_APP_ID>'
-      config.default_facebook_nickname = '<A_FACEBOOK_NICKNAME>'
+      self.facebook_nickname = ''
+
+      # Optionally include:
+      config.facebook_app_id = nil
     end
 
     # app/assets/javascrippts/application.js
@@ -65,7 +72,7 @@ Or install it yourself as:
 
     # config/initializers/flakey.rb
     Flakey.configure do |config|
-      config.default_github_name = 'dtuite'
+      config.github_name = 'dtuite'
     end
 
     # app/helpers/application_helper.rb
@@ -80,8 +87,8 @@ Or install it yourself as:
 
     # config/initializers/flakey.rb
     Flakey.configure do |config|
-      config.default_stackoverflow_nickname = 'david-tuite'
-      config.default_stackoverflow_user_id = '7389247'
+      config.stackoverflow_nickname = 'david-tuite'
+      config.stackoverflow_user_id = '7389247'
     end
 
     # app/helpers/application_helper.rb
@@ -97,6 +104,7 @@ Or install it yourself as:
     # config/initializers/flakey.rb
     Flakey.configure do |config|
       config.google_plus_user_id = "9873465784"
+
       # Optionally:
       # Should be of the form of, for example, 'en-GB' or 'de'.
       # config.plus_one_button_language = 'en-GB'

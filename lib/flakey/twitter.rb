@@ -49,33 +49,34 @@ module Flakey
     # [+url+] The URL to tweet. Default to the current request url.
     # [+text+] The textual body of the Tweet. Defaults to the current page title. This is a Twitter convention.
     # [+hashtags+] A list of hashtags to include in the tweet. Can be globally configured by setting +tweet_hashtags+.
-    # [+label+] The text to appear on the tweet button. Can be configured by setting +tweet_label+.
     # [+via+] Tweet via an associated about. Defaults to the +tweet_via+ configuration setting.
     # [+related+] A related Twitter handle. Defaults to the +tweet_related+ configuration setting.
     # [+class+] HTML classes to apply to the Tweet button. Defaults to the +tweet_button_class+ configuration setting which is <i>"twitter-share-button"</i>.
     # [+size+] The size of the button. Valid options are <i>nil</i> (default) and </i>'large'</i>.
+    # [+count+] The position of the Tweet count. Valid options are <i>horizonal</i> (default), <i>vertical</i> and </i>none</i>.
     #
     # Returns a HTML string.
     def tweet_button(options = {})
       url = options[:url] || request.url
-      text = options[:text]
+      text = options[:text] || ''
       hashtags = options[:hashtags] || Flakey.configuration.tweet_hashtags
-      label = options[:label] || Flakey.configuration.tweet_label
       via = options[:via] || Flakey.configuration.tweet_via
       related = options[:related] || Flakey.configuration.tweet_related
       size = options[:size] || Flakey.configuration.tweet_button_size
       class_list = options[:class] || Flakey.configuration.tweet_button_class
+      count = options[:count] || Flakey.configuration.tweet_button_count_position
 
-      data_attr = { via: via, related: related, hashtags: hashtags }
+      data_attr = { via: via, related: related, hashtags: hashtags,
+        count: count }
       # Twitter will take the page title if we just leave it out.
-      data_attr.merge!(text: text) unless text.nil?
+      data_attr.merge!(text: sanitize(text)) unless text.nil?
       data_attr.merge!(size: size) unless size.nil?
       data_attr.merge!(url: url) unless url.nil?
 
       class_list = class_list ? 
         class_list.concat(' ' + TWEET_BUTTON_CLASS) : TWEET_BUTTON_CLASS
 
-      link_to label, SHARE_URL, :class => class_list, :data => data_attr
+      link_to "Tweet", SHARE_URL, class: class_list, data: data_attr
     end
 
     # Generate a traditional follow button. This method needs the Twitter 
@@ -109,7 +110,6 @@ module Flakey
     # Generate a link which will open a dialog for following the user with
     # whe specified user_id or screen_name.
     def follow_intent_link(text, options = {})
-      # TODO: Default to a
       user_id_to_follow = options[:user_id] || Flakey.configuration.twitter_user_id
       screen_name_to_follow = options[:screen_name] || 
         Flakey.configuration.twitter_handle
