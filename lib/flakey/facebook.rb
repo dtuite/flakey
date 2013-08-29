@@ -1,6 +1,11 @@
 module Flakey
   module Facebook
     SHARE_URL = 'https://www.facebook.com/sharer/sharer.php'
+    #
+    # Needed to be able to pass a block down into link_to.
+    # See the share_button method.
+    # INFO: http://stackoverflow.com/a/7562194/574190
+    attr_accessor :output_buffer
 
     def facebook_nickname(options = {})
       options[:nickname] ||
@@ -45,11 +50,26 @@ module Flakey
     # INFO: http://goo.gl/MvqIi4
     #
     # Returns a HTML string.
-    def share_button(options = {})
-      label = options[:label] || 'Share'
-      url = options[:url] || request.url
+    def share_button(options = {}, &block)
+      defaults = {
+        url: request.url,
+        label: 'Share',
+        target: '_blank',
+        class: 'facebook-share-button'
+      }
 
-      link_to label, "#{SHARE_URL}?u=#{url}", target: '_blank'
+      settings = defaults.merge options
+
+      url = "#{SHARE_URL}?u=#{CGI.escape settings[:url]}"
+      label = settings[:label]
+      settings.delete(:url)
+      settings.delete(:label)
+
+      if block_given?
+        link_to(url, settings, &block)
+      else
+        link_to label, url, settings
+      end
     end
   end
 end

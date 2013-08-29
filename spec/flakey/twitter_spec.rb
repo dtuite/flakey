@@ -58,7 +58,9 @@ describe Flakey::Twitter do
 
   describe 'custom_tweet_button' do
     before { subject.stub_chain('request.url') { 'http://example.com/hello' } }
-    let(:default_url) { "#{Flakey::Twitter::SHARE_URL}?url=http%3A%2F%2Fexample.com%2Fhello" }
+    let(:default_url) do
+      "#{Flakey::Twitter::SHARE_URL}?url=http%3A%2F%2Fexample.com%2Fhello"
+    end
 
     it 'should include the default url and label' do
       subject.should_receive(:link_to)
