@@ -20,7 +20,7 @@ if (typeof jQuery === "undefined") {
   };
 
   $(function(){
-    $('.custom-tweet-button, .facebook-share-button').on('click', function(e){
+    $('.custom-tweet-button, .facebook-share-button, .flakey-popup').on('click', function(e){
       e.preventDefault();
       openPopup($(e.target).closest('a').attr('href'), 'twitter');
     });
