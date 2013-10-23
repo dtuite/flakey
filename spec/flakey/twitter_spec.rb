@@ -56,6 +56,31 @@ describe Flakey::Twitter do
     end
   end
 
+  describe "#tweet_url" do
+    before { subject.stub_chain('request.url') { 'http://www.example.com' } }
+
+    it "should include the url" do
+      subject.tweet_url().should == "https://twitter.com/share?url=http%3A%2F%2Fwww.example.com"
+    end
+
+    it "should include via" do
+      subject.tweet_url(:via => "kieran").should =~ /[&?]via=kieran/
+    end
+    
+    it "should include hashtags" do
+      subject.tweet_url(:hashtags => "cupoftea").should =~ /[&?]hashtags=cupoftea/
+    end
+    
+    it "should include text" do
+      subject.tweet_url(:text => "hello").should =~ /[&?]text=hello/
+    end
+    
+    it "should include related" do
+      subject.tweet_url(:related => "someone").should =~ /[&?]related=someone/
+    end
+    
+  end
+
   describe 'custom_tweet_button' do
     before { subject.stub_chain('request.url') { 'http://example.com/hello' } }
     let(:default_url) do
