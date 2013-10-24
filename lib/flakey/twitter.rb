@@ -136,28 +136,42 @@ module Flakey
       link_to text, intent_url, options.except(:user_id, :screen_name)
     end
 
-    def custom_tweet_button(options = {}, &block)
+    def tweet_url(options = {})
       defaults = {
-        label: 'Tweet',
-        url: request.url,
+        url: respond_to?(:request) && request.url, # allow inclusion in classes that don't respond to :request, or where request is nil
         related: Flakey.configuration.tweet_related,
         hashtags: Flakey.configuration.tweet_hashtags,
-        via: Flakey.configuration.tweet_via,
-        class: 'custom-tweet-button',
-        target: '_blank'
+        via: Flakey.configuration.tweet_via
       }
       settings = defaults.merge(options)
       url = "#{SHARE_URL}?url=#{CGI.escape settings[:url]}"
-
-      label = settings[:label]
-      # Delete these so we can pass the settings directly into link_to
-      settings.delete(:label)
-      settings.delete(:url)
 
       %w[text hashtags related via].each do |url_key|
         if settings.has_key?(url_key.to_sym) && settings[url_key.to_sym] != ''
           url += "&#{url_key}=#{CGI.escape settings[url_key.to_sym]}"
         end
+      end
+      
+      url
+    end
+
+    def custom_tweet_button(options = {}, &block)
+
+      url = tweet_url(options)
+
+      defaults = {
+        label: 'Tweet',
+        class: 'custom-tweet-button',
+        target: '_blank'
+      }
+      settings = defaults.merge(options)
+
+      label=settings.delete(:label)
+
+      # Delete these so we can pass the settings directly into link_to
+      settings.delete(:label)
+      settings.delete(:url)
+      %w[text hashtags related via].each do |url_key|
         settings.delete(url_key.to_sym)
       end
 
