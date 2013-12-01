@@ -1,5 +1,7 @@
 module Flakey
   module Facebook
+    include Base
+
     SHARE_URL = 'https://www.facebook.com/sharer/sharer.php'
     #
     # Needed to be able to pass a block down into link_to.
@@ -32,7 +34,7 @@ module Flakey
     #
     # Returns a HTML string.
     def like_button(options = {})
-      url = options[:url] || request.url
+      url = options[:url] || default_url
       layout = options[:layout] || 'button_count'
       width = options[:width] || 250
       send = options[:send] || false
@@ -52,7 +54,7 @@ module Flakey
     # Returns a HTML string.
     def share_button(options = {}, &block)
       defaults = {
-        url: request.url,
+        url: default_url,
         label: 'Share',
         target: '_blank',
         class: 'facebook-share-button'

@@ -5,6 +5,7 @@ require 'active_support/core_ext/hash/except'
 
 module Flakey
   module Twitter
+    include Base
 
     BASE_URL = "https://twitter.com"
     SHARE_URL = BASE_URL + "/share"
@@ -64,7 +65,7 @@ module Flakey
     #
     # Returns a HTML string.
     def tweet_button(options = {})
-      url = options[:url] || request.url
+      url = options[:url] || default_url
       text = options[:text] || ''
       hashtags = options[:hashtags] || Flakey.configuration.tweet_hashtags
       via = options[:via] || Flakey.configuration.tweet_via
@@ -138,7 +139,7 @@ module Flakey
 
     def tweet_url(options = {})
       defaults = {
-        url: respond_to?(:request) && request.url, # allow inclusion in classes that don't respond to :request, or where request is nil
+        url: default_url,
         related: Flakey.configuration.tweet_related,
         hashtags: Flakey.configuration.tweet_hashtags,
         via: Flakey.configuration.tweet_via
@@ -166,8 +167,6 @@ module Flakey
       }
       settings = defaults.merge(options)
 
-      label = settings.delete(:label)
-
       # Delete these so we can pass the settings directly into link_to
       %w[url text hashtags related via].each do |url_key|
         settings.delete(url_key.to_sym)
@@ -176,7 +175,7 @@ module Flakey
       if block_given?
         link_to(url, settings, &block)
       else
-        link_to label, url, settings
+        link_to settings.delete(:label), url, settings
       end
     end
   end
