@@ -1,4 +1,5 @@
 require "flakey/configuration"
+require "flakey/base"
 require "flakey/twitter"
 require "flakey/facebook"
 require "flakey/github"
