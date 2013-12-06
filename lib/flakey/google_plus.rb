@@ -1,5 +1,7 @@
 module Flakey
   module GooglePlus
+    include Base
+
     BASE_URL = "https://plus.google.com"
 
     # INFO: https://developers.google.com/+/plugins/+1button/
@@ -23,6 +25,25 @@ module Flakey
     def google_plus_profile_url(user_id = nil)
       user_id = user_id || Flakey.configuration.google_plus_user_id
       BASE_URL + "/#{user_id}"
+    end
+
+    def custom_google_plus_button(options = (), &block)
+      defaults = {
+        url: default_url,
+        class: 'custom-google-plus-button',
+        target: '_blank',
+        label: "label"
+      }
+      settings = defaults.merge(options)
+      label = settings.delete(:label)
+      url = "#{BASE_URL}/share?url=#{CGI.escape(settings[:url])}"
+      settings.delete(:url)
+
+      if block_given?
+        link_to(url, settings, &block)
+      else
+        link_to label, url, settings
+      end
     end
   end
 end

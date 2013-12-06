@@ -167,15 +167,16 @@ module Flakey
       }
       settings = defaults.merge(options)
 
+      label = settings.delete(:label)
       # Delete these so we can pass the settings directly into link_to
-      %w[url text hashtags related via].each do |url_key|
+      %w[url text hashtags related via label].each do |url_key|
         settings.delete(url_key.to_sym)
       end
 
       if block_given?
         link_to(url, settings, &block)
       else
-        link_to settings.delete(:label), url, settings
+        link_to label, url, settings
       end
     end
   end
