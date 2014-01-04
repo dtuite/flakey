@@ -4,7 +4,7 @@ module Flakey
 
     SHARE_URL = "https://bufferapp.com/add"
 
-    def buffer_button(options = {})
+    def buffer_button(options = {}, &block)
       defaults = {
         url: default_url,
         label: "Buffer",
