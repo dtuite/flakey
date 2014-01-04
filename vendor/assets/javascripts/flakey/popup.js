@@ -22,7 +22,18 @@ if (typeof jQuery === "undefined") {
   $(function(){
     $('.custom-tweet-button, .facebook-share-button, .flakey-popup').on('click', function(e){
       e.preventDefault();
-      openPopup($(e.target).closest('a').attr('href'), 'twitter');
+      var opts = {},
+          $link = $(e.target).closest('a');
+
+      if (typeof $link.data('flakey-width') !== "undefined") { 
+        opts.width = parseFloat($link.data('flakey-width'));
+      };
+
+      if (typeof $link.data('flakey-height') !== "undefined") { 
+        opts.height = parseFloat($link.data('flakey-height'));
+      };
+
+      openPopup($link.attr('href'), 'share', opts);
     });
   });
 })(jQuery);
