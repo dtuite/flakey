@@ -145,7 +145,7 @@ module Flakey
         via: Flakey.configuration.tweet_via
       }
       settings = defaults.merge(options)
-      url = "#{SHARE_URL}?url=#{CGI.escape settings[:url]}"
+      url = "https://twitter.com/intent/tweet?url=#{CGI.escape settings[:url]}"
 
       %w[text hashtags related via].each do |url_key|
         if settings.has_key?(url_key.to_sym) && settings[url_key.to_sym] != ''

@@ -16,7 +16,7 @@ if (typeof jQuery === "undefined") {
     var top    = ($(window).height() - height) / 2;
     var opts   = "status=1,width=" + width + ',height=' + height + ',top=' + top + ',left=' + left;
       
-    window.open(url, name, opts)
+    return window.open(url, name, opts);
   };
 
   $(function(){
@@ -33,7 +33,7 @@ if (typeof jQuery === "undefined") {
         opts.height = parseFloat($link.data('flakey-height'));
       };
 
-      openPopup($link.attr('href'), 'share', opts);
+      var win = openPopup($link.attr('href'), 'share', opts);
     });
   });
 })(jQuery);
