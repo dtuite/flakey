@@ -8,7 +8,7 @@ module Flakey
     include Base
 
     BASE_URL = "https://twitter.com"
-    SHARE_URL = BASE_URL + "/share"
+    SHARE_URL = BASE_URL + "/intent/tweet"
 
     # Default HTML classes for the various buttons.
     TWEET_BUTTON_CLASS = 'twitter-share-button'
@@ -117,10 +117,11 @@ module Flakey
 
     # Generate a link which will open a dialog for following the user with
     # whe specified user_id or screen_name.
-    def follow_intent_link(text, options = {})
+    def follow_intent_link(options = {}, &block)
       user_id_to_follow = options[:user_id] || Flakey.configuration.twitter_user_id
       screen_name_to_follow = options[:screen_name] || 
         Flakey.configuration.twitter_handle
+      label = options.has_key?(:label) ? options.delete(:label) : "Follow Me"
 
       intent_url = 'https://twitter.com/intent/user?'
 
@@ -134,7 +135,11 @@ module Flakey
         intent_url += "screen_name=#{screen_name_to_follow}"
       end
 
-      link_to text, intent_url, options.except(:user_id, :screen_name)
+      if block_given?
+        link_to(intent_url, options.except(:user_id, :screen_name), &block)
+      else
+        link_to label, intent_url, options.except(:user_id, :screen_name)
+      end
     end
 
     def tweet_url(options = {})
@@ -145,7 +150,7 @@ module Flakey
         via: Flakey.configuration.tweet_via
       }
       settings = defaults.merge(options)
-      url = "https://twitter.com/intent/tweet?url=#{CGI.escape settings[:url]}"
+      url = "#{SHARE_URL}?url=#{CGI.escape settings[:url]}"
 
       %w[text hashtags related via].each do |url_key|
         if settings.has_key?(url_key.to_sym) && settings[url_key.to_sym] != ''

@@ -60,7 +60,8 @@ describe Flakey::Twitter do
     before { subject.stub_chain('request.url') { 'http://www.example.com' } }
 
     it "should include the url" do
-      subject.tweet_url().should == "https://twitter.com/share?url=http%3A%2F%2Fwww.example.com"
+      expected = "https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.example.com"
+      subject.tweet_url.should == expected
     end
 
     it "should include via" do
@@ -78,7 +79,6 @@ describe Flakey::Twitter do
     it "should include related" do
       subject.tweet_url(:related => "someone").should =~ /[&?]related=someone/
     end
-    
   end
 
   describe 'custom_tweet_button' do
