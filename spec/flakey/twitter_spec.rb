@@ -4,6 +4,7 @@ require 'action_view'
 
 class DummyHelper
   include ::ActionView::Helpers::UrlHelper
+  include ::ActionView::Helpers::SanitizeHelper
   include Flakey::Twitter
 end
 
@@ -22,19 +23,24 @@ describe Flakey::Twitter do
 
   describe "#tweet_button" do
     before { subject.stub_chain('request.url') { '' } }
+    let(:base) { Flakey::Twitter::SHARE_URL }
 
     it "should append to the class list" do
       subject.should_receive(:link_to)
-        .with("Tweet", Flakey::Twitter::SHARE_URL,
-              hash_including(class: 'hello twitter-share-button'))
+        .with("Tweet", base, hash_including(class: 'hello twitter-share-button'))
       subject.tweet_button(class: 'hello')
     end
 
     it "should work without a class argument" do
       subject.should_receive(:link_to)
-        .with("Tweet", Flakey::Twitter::SHARE_URL,
-              hash_including(class: 'twitter-share-button'))
+        .with("Tweet", base, hash_including(class: 'twitter-share-button'))
       subject.tweet_button
+    end
+
+    it "should facilitate an id" do
+      subject.should_receive(:link_to)
+        .with("Tweet", base, hash_including(id: 'the-id'))
+      subject.tweet_button(id: 'the-id')
     end
   end
 

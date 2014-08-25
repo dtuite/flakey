@@ -80,11 +80,15 @@ module Flakey
       data_attr.merge!(text: sanitize(text)) unless text.nil?
       data_attr.merge!(size: size) unless size.nil?
       data_attr.merge!(url: url) unless url.nil?
+      data_attr.merge!(options[:data]) unless options[:data].nil?
 
       class_list = class_list ? 
         class_list.concat(' ' + TWEET_BUTTON_CLASS) : TWEET_BUTTON_CLASS
 
-      link_to "Tweet", SHARE_URL, class: class_list, data: data_attr
+      settings = { class: class_list, data: data_attr }
+      settings.merge!(id: options[:id]) if options[:id].present?
+
+      link_to "Tweet", SHARE_URL, settings
     end
 
     # Generate a traditional follow button. This method needs the Twitter 
