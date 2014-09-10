@@ -19,21 +19,29 @@ if (typeof jQuery === "undefined") {
     return window.open(url, name, opts);
   };
 
+  var linkClicked = function(e) {
+    e.preventDefault();
+    var opts = {},
+        $link = $(e.target).closest('a');
+
+    if (typeof $link.data('flakey-width') !== "undefined") { 
+      opts.width = parseFloat($link.data('flakey-width'));
+    };
+
+    if (typeof $link.data('flakey-height') !== "undefined") { 
+      opts.height = parseFloat($link.data('flakey-height'));
+    };
+
+    var win = openPopup($link.attr('href'), 'share', opts);
+  };
+
+  var clickTargets = [
+    '.custom-tweet-button', 
+    '.facebook-share-button', 
+    '.flakey-popup'
+  ].join(', ');
+
   $(function(){
-    $('.custom-tweet-button, .facebook-share-button, .flakey-popup').on('click', function(e){
-      e.preventDefault();
-      var opts = {},
-          $link = $(e.target).closest('a');
-
-      if (typeof $link.data('flakey-width') !== "undefined") { 
-        opts.width = parseFloat($link.data('flakey-width'));
-      };
-
-      if (typeof $link.data('flakey-height') !== "undefined") { 
-        opts.height = parseFloat($link.data('flakey-height'));
-      };
-
-      var win = openPopup($link.attr('href'), 'share', opts);
-    });
+    $(clickTargets).on('click', linkClicked);
   });
 })(jQuery);
