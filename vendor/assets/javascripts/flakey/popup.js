@@ -41,7 +41,13 @@ if (typeof jQuery === "undefined") {
     '.flakey-popup'
   ].join(', ');
 
-  $(function(){
+  var ready = function() {
     $(clickTargets).on('click', linkClicked);
-  });
+  };
+
+  if (window.Turbolinks) {
+    $(document).on('page:change', ready);
+  } else {
+    $(ready);
+  }
 })(jQuery);
